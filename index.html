@@ -49,25 +49,21 @@
       border-left: 4px solid #A0522D; /* 로스팅 시그니처 다크 브라운 */
     }
 
-    /* 💡 [수정 사항 1 해결] 좌우 열을 완전 균등 분배(space-between) 구조로 개편하여 수직 840px 정렬 완성 */
+    /* 💡 [대변혁] 중앙 이미지 고정 및 6단 지그재그 교차 입체 그리드 행렬 세팅 */
     .workspace {
       display: grid;
-      grid-template-columns: 290px 420px 290px;
+      grid-template-columns: 350px 320px 350px; /* 좌우 공간을 넓혀 가독성 스케일업 */
+      grid-template-rows: repeat(6, 130px); /* 촘촘하고 꽉 찬 비주얼을 위해 130px로 간격 압축 조율 */
+      align-items: center;
       position: relative;
       margin-top: 20px;
-      height: 840px; /* 전체 연동 캔버스 높이 확정 */
+      height: 780px; 
     }
 
-    .side-column {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* 3개의 카드가 위부터 아래까지 완벽히 균일한 여백으로 자동 정렬 */
-      height: 100%;
-      z-index: 10;
-    }
-
-    /* 중앙 세로형 스트림 콩 에셋 축 */
+    /* 정중앙 수직 정렬 코어 */
     .center-core {
+      grid-column: 2;
+      grid-row: 1 / span 6;
       position: relative;
       width: 100%;
       height: 100%;
@@ -78,7 +74,7 @@
 
     .bean-image-wrapper {
       width: 240px;
-      height: 820px;
+      height: 760px;
       border-radius: 24px;
       box-shadow: 0 15px 45px rgba(92, 64, 51, 0.12);
       overflow: hidden;
@@ -95,6 +91,7 @@
       object-fit: fill;
     }
 
+    /* 캔버스 전체를 감싸는 지시선 마스터 레이어 */
     .connector-svg {
       position: absolute;
       top: 0;
@@ -105,7 +102,7 @@
       z-index: 2;
     }
 
-    /* 💡 [수정 사항 2 해결] 각 카드의 고정 수직 센터에서 중앙 온도 마커를 향해 비스듬하게 꽂히는 삼각 레이더 지시선 */
+    /* 💡 [수정 사항 4 해결] 카드의 수직 중앙(M)에서 실제 원두 온도 마커 노드를 향해 예리하게 사선으로 연결되는 앵커 좌표 */
     .pointer-line {
       fill: none;
       stroke: #E5E5EA;
@@ -117,15 +114,16 @@
       transition: fill 0.25s ease, r 0.25s ease;
     }
 
-    /* iOS 프리미엄 가젯 카드 스타일 */
+    /* 💡 [수정 사항 3 해결] 텍스트 크기와 카드 스케일을 약간 키워 내부 여백을 꽉 채운 프리미엄 가젯 */
     .category-card {
       background: #FFFFFF;
       border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 16px;
-      padding: 18px 22px;
+      border-radius: 18px;
+      padding: 20px 24px; /* 패딩을 넓혀 볼륨감 형성 */
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
       transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+      align-self: center;
     }
     .category-card:hover {
       transform: translateY(-3px);
@@ -137,25 +135,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
     .card-title {
-      font-size: 15px;
+      font-size: 16.5px; /* 타이틀 폰트 스케일업 */
       font-weight: 700;
       color: #1D1D1F;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
     .card-desc {
-      font-size: 11.5px;
+      font-size: 12.5px; /* 설명문 폰트 스케일업으로 시인성 확보 */
       color: #636366;
       line-height: 1.5;
     }
 
-    /* 호버 액티브 상태 인덱서 */
+    /* 액티브 하이라이트 인덱서 */
     .category-card.active-card {
       border-color: var(--theme-color) !important;
     }
@@ -181,8 +179,8 @@
       pointer-events: auto; 
       display: none;
       z-index: 1000;
-      width: 470px;
-      max-height: 430px; 
+      width: 460px;
+      max-height: 420px; 
       overflow-y: auto;   
       animation: popFade 0.15s ease-out;
     }
@@ -298,25 +296,25 @@
 
     <div class="workspace">
       
-      <div class="center-core">
-        <svg class="connector-svg" id="connector-canvas" viewBox="0 0 440 840">
-          <path id="line-stage1" class="pointer-line" d="M 0 77 L 110 77 L 160 165" />
-          <circle id="dot-stage1" class="pointer-circle" cx="160" cy="165" r="3.5" />
+      <div class="center-core" style="grid-column: 1 / span 3; grid-row: 1 / span 6;">
+        <svg class="connector-svg" id="connector-canvas" viewBox="0 0 1020 780">
+          <path id="line-stage1" class="pointer-line" d="M 350 65 L 455 65 L 475 160" />
+          <circle id="dot-stage1" class="pointer-circle" cx="475" cy="160" r="3.5" />
 
-          <path id="line-stage2" class="pointer-line" d="M 0 420 L 105 420 L 155 250" />
-          <circle id="dot-stage2" class="pointer-circle" cx="155" cy="250" r="3.5" />
+          <path id="line-stage2" class="pointer-line" d="M 670 195 L 565 195 L 545 255" />
+          <circle id="dot-stage2" class="pointer-circle" cx="545" cy="255" r="3.5" />
 
-          <path id="line-stage3" class="pointer-line" d="M 0 763 L 110 763 L 165 340" />
-          <circle id="dot-stage3" class="pointer-circle" cx="165" cy="340" r="3.5" />
+          <path id="line-stage3" class="pointer-line" d="M 350 325 L 455 325 L 475 345" />
+          <circle id="dot-stage3" class="pointer-circle" cx="475" cy="345" r="3.5" />
 
-          <path id="line-stage4" class="pointer-line" d="M 440 77 L 330 77 L 275 430" />
-          <circle id="dot-stage4" class="pointer-circle" cx="275" cy="430" r="3.5" />
+          <path id="line-stage4" class="pointer-line" d="M 670 455 L 565 455 L 545 440" />
+          <circle id="dot-stage4" class="pointer-circle" cx="545" cy="440" r="3.5" />
 
-          <path id="line-stage5" class="pointer-line" d="M 440 420 L 335 420 L 285 535" />
-          <circle id="dot-stage5" class="pointer-circle" cx="285" cy="535" r="3.5" />
+          <path id="line-stage5" class="pointer-line" d="M 350 585 L 455 585 L 475 545" />
+          <circle id="dot-stage5" class="pointer-circle" cx="475" cy="545" r="3.5" />
 
-          <path id="line-stage6" class="pointer-line" d="M 440 763 L 330 763 L 272 635" />
-          <circle id="dot-stage6" class="pointer-circle" cx="272" cy="635" r="3.5" />
+          <path id="line-stage6" class="pointer-line" d="M 670 715 L 565 715 L 545 650" />
+          <circle id="dot-stage6" class="pointer-circle" cx="545" cy="650" r="3.5" />
         </svg>
 
         <div class="bean-image-wrapper" id="core-bean-img">
@@ -324,62 +322,58 @@
         </div>
       </div>
 
-      <div class="side-column" id="left-col">
-        <div class="category-card left-card" data-id="stage1" style="--theme-color: #34C759;">
-          <div class="card-label-row">
-            <span style="color: #34C759;">Phase 01 • Drying</span>
-            <span style="color: #8E8E93;">140°C</span>
-          </div>
-          <div class="card-title">수분 증발 및 구조 안정화</div>
-          <div class="card-desc">생두 내부의 자유 수분이 급격히 기화하며 세포 압력이 상승하는 단계입니다. 단단하던 나무 조직 매트릭스가 유연하게 팽창합니다.</div>
+      <div class="category-card left-card" data-id="stage1" style="--theme-color: #34C759; grid-column: 1; grid-row: 1;">
+        <div class="card-label-row">
+          <span style="color: #34C759;">Phase 01 • Drying</span>
+          <span style="color: #8E8E93;">140°C</span>
         </div>
-        
-        <div class="category-card left-card" data-id="stage2" style="--theme-color: #FFCC00;">
-          <div class="card-label-row">
-            <span style="color: #FFCC00;">Phase 02 • Yellowing</span>
-            <span style="color: #8E8E93;">160°C</span>
-          </div>
-          <div class="card-title">엽록소 붕괴 및 황색 변성</div>
-          <div class="card-desc">녹색을 띠던 엽록소 성분이 고열에 파괴되면서 숨겨져 있던 식물성 황색 색소들이 노출됩니다. 고소한 브레드 향의 전구체들이 정렬됩니다.</div>
+        <div class="card-title">수분 증발 및 구조 안정화</div>
+        <div class="card-desc">생두 내부의 자유 수분이 급격히 기화하며 세포 압력이 상승하는 단계입니다. 단단하던 나무 조직 매트릭스가 유연하게 팽창합니다.</div>
+      </div>
+      
+      <div class="category-card right-card" data-id="stage2" style="--theme-color: #FFCC00; grid-column: 3; grid-row: 2;">
+        <div class="card-label-row">
+          <span style="color: #FFCC00;">Phase 02 • Yellowing</span>
+          <span style="color: #8E8E93;">160°C</span>
         </div>
-        
-        <div class="category-card left-card" data-id="stage3" style="--theme-color: #A0522D;">
-          <div class="card-label-row">
-            <span style="color: #A0522D;">Phase 03 • Maillard</span>
-            <span style="color: #8E8E93;">170–190°C</span>
-          </div>
-          <div class="card-title">아미노-당 열화학 중합 반응</div>
-          <div class="card-desc">유리 아미노산과 환원당이 격렬하게 결합하며 잔 전체에 고소한 견과류, 카카오, 구운 시리얼 계열의 플레이버를 폭발시키는 핵심 중추입니다.</div>
+        <div class="card-title">엽록소 붕괴 및 황색 변성</div>
+        <div class="card-desc">녹색을 띠던 엽록소 성분이 고열에 파괴되면서 숨겨져 있던 식물성 황색 색소들이 노출됩니다. 고소한 브레드 향의 전구체들이 정렬됩니다.</div>
+      </div>
+      
+      <div class="category-card left-card" data-id="stage3" style="--theme-color: #A0522D; grid-column: 1; grid-row: 3;">
+        <div class="card-label-row">
+          <span style="color: #A0522D;">Phase 03 • Maillard</span>
+          <span style="color: #8E8E93;">170–190°C</span>
         </div>
+        <div class="card-title">아미노-당 열화학 중합 반응</div>
+        <div class="card-desc">유리 아미노산과 환원당이 격렬하게 결합하며 잔 전체에 고소한 견과류, 카카오, 구운 시리얼 계열의 플레이버를 폭발시키는 핵심 중추입니다.</div>
       </div>
 
-      <div class="side-column" id="right-col">
-        <div class="category-card right-card" data-id="stage4" style="--theme-color: #FF9500;">
-          <div class="card-label-row">
-            <span style="color: #FF9500;">Phase 04 • Caramel</span>
-            <span style="color: #8E8E93;">180–200°C</span>
-          </div>
-          <div class="card-title">당류 열분해 및 시럽화 공정</div>
-          <div class="card-desc">수용성 자당 구조가 녹아내리며 다아세틸, 푸란 등 달콤한 휘발성 향기를 생성합니다. 동시에 아세트산과 폼산이 급증하여 산미 레벨을 부스팅합니다.</div>
+      <div class="category-card right-card" data-id="stage4" style="--theme-color: #FF9500; grid-column: 3; grid-row: 4;">
+        <div class="card-label-row">
+          <span style="color: #FF9500;">Phase 04 • Caramel</span>
+          <span style="color: #8E8E93;">180–200°C</span>
         </div>
-        
-        <div class="category-card right-card" data-id="stage5" style="--theme-color: #FF3B30;">
-          <div class="card-label-row">
-            <span style="color: #FF3B30;">Phase 05 • 1st Crack</span>
-            <span style="color: #8E8E93;">196°C</span>
-          </div>
-          <div class="card-title">기압 폭발 및 신선 향 방출</div>
-          <div class="card-desc">세포 내부 가스 압력이 한계를 넘어 나무 조직을 찢고 터지는 구간입니다. 수증기와 함께 수십 종의 신선한 황 화합물 및 티올 아로마가 대량 방출됩니다.</div>
+        <div class="card-title">당류 열분해 및 시럽화 공정</div>
+        <div class="card-desc">수용성 자당 구조가 녹아내리며 다아세틸, 푸란 등 달콤한 휘발성 향기를 생성합니다. 동시에 아세트산과 폼산이 급증하여 산미 레벨을 부스팅합니다.</div>
+      </div>
+      
+      <div class="category-card left-card" data-id="stage5" style="--theme-color: #FF3B30; grid-column: 1; grid-row: 5;">
+        <div class="card-label-row">
+          <span style="color: #FF3B30;">Phase 05 • 1st Crack</span>
+          <span style="color: #8E8E93;">196°C</span>
         </div>
-        
-        <div class="category-card right-card" data-id="stage6" style="--theme-color: #5856D6;">
-          <div class="card-label-row">
-            <span style="color: #5856D6;">Phase 06 • Develop</span>
-            <span style="color: #8E8E93;">205–210°C</span>
-          </div>
-          <div class="card-title">쓴맛 밸런스 및 바디 완성</div>
-          <div class="card-desc">클로로겐산 락톤이 페닐인데인으로 2차 중합되며 중후한 에스프레소성 쓴맛의 골격을 잡습니다. 초고분자 멜라노이딘이 끈적한 바디 점성을 독점합니다.</div>
+        <div class="card-title">기압 폭발 및 신선 향 방출</div>
+        <div class="card-desc">세포 내부 가스 압력이 한계를 넘어 나무 조직을 찢고 터지는 구간입니다. 수증기와 함께 수십 종의 신선한 황 화합물 및 티올 아로마가 대량 방출됩니다.</div>
+      </div>
+      
+      <div class="category-card right-card" data-id="stage6" style="--theme-color: #5856D6; grid-column: 3; grid-row: 6;">
+        <div class="card-label-row">
+          <span style="color: #5856D6;">Phase 06 • Develop</span>
+          <span style="color: #8E8E93;">205–210°C</span>
         </div>
+        <div class="card-title">쓴맛 밸런스 및 바디 완성</div>
+        <div class="card-desc">클로로겐산 락톤이 페닐인데인으로 2차 중합되며 중후한 에스프레소성 쓴맛의 골격을 잡습니다. 초고분자 멜라노이딘이 끈적한 바디 점성을 독점합니다.</div>
       </div>
 
     </div>
@@ -402,6 +396,7 @@
   </div>
 
   <script>
+    // 100대 마스터 화학사전 데이터베이스 프레임 유지
     const RoastingMasterDB = {
       stage1: {
         title: "🌾 140°C 수분 증발 구간 생성 분자 (1~16)",
@@ -418,7 +413,7 @@
           ["갈락토만난 다당류", "기원: 세포벽 매트릭스 다당류 체인", "효과: 반불용성 상태로 존재하며 로스팅 가열 스트레스를 견뎌내는 물리적 지탱 축"],
           ["아라비노갈락탄 다당류", "기원: 세포간질 채우는 고분자 헤미셀룰로오스 복합체", "효과: 열분해 준비 단계로 점성 매트릭스의 기저층을 형성"],
           ["11S 저장 글로불린 단백질", "기원: 생두 내부 최주력 고분자 단백질 무리", "효과: 열에 의해 아미노산 조각 플레이크로 깨지기 직전의 아로마 저장고 역할 수행"],
-          ["유리 아미노산 글루탐산", "기원: 단백질 미결합 수용성 아미노산", "효과: 추출 잔 전체에 중후하게 깔리는 깊은 베이스 신맛และ 감칠맛 톤 예비 빌드업"],
+          ["유리 아미노산 글루탐산", "기원: 단백질 미결합 수용성 아미노산", "효과: 추출 잔 전체에 중후하게 깔리는 깊은 베이스 신맛과 감칠맛 톤 예비 빌드업"],
           ["유리 아미노산 아스파르트산", "기원: 자유 친수성 아미노산 인자", "효과: 혀를 기분 좋게 자극하는 약산성 커피 용액의 복합 미각 밸런스 기초 구축"],
           ["트라이글리세라이드 지방산 체인", "기원: 리놀레산/올레산 중심 비극성 에스테르 오일", "효과: 수분이 빠져나간 미세 공간으로 흐르며 향기 물질을 용해해 보존할 스탠바이"],
           ["식물성 스테롤 화합물류", "기원: 생두 세포막 유연성 조율 지질 복합체", "효과: 커피 추출 지질액의 두터운 질감과 여운을 만드는 기저 물질층"]
@@ -501,7 +496,7 @@
           ["이황화탄소 (Carbon Disulfide)", "기원: 유기 유황 매트릭스의 후반 고열 직선형 축합", "효과: 배전 후반부 원두 오일에 포획되어 복합 플레이버의 점성을 미세 보정"],
           ["2-메틸-3-퓨란티올 (2-MFT)", "기원: 환원당 + 황화수소의 초기 마이야르 황 치환", "효과: 로스트 미트 혹은 구운 고기 같은 묵직하고 중후한 구수함 가미"],
           ["퍼퓨릴 메틸 다이설파이드", "기원: 퓨란계 골격 + 메탄티올 분자 기상 열융합", "효과: 구운 견과류와 가스 향의 연결 다리 역할을 수행하는 복합 브릿지 향미"],
-          ["3-메르카프토-3-메틸부틸 폼산염", "기원: 당 유래 카르보닐 + 티올의 특이 폼산 에스테르 융합", "효과: 스페셜티 커피 고유의 블랙커런트 계열 고급 과일 향미 미세 보조"],
+          ["3-메르카프토-3-메틸부틸 폼산염", "기원: 당 유래 카르보닐 + 티올의 특이 융합", "효과: 스페셜티 커피 고유의 블랙커런트 계열 고급 과일 향미 미세 보조"],
           ["3-CQA 락톤 (3-CQA Lactone)", "기원: 클로로겐산(CQA) 무리의 수분 이탈 분자내 탈수", "효과: 약~중배전 커피 특유의 품격 있고 침샘 고이는 깔끔한 천연 쓴맛의 핵"],
           ["4-CQA 락톤 (4-CQA Lactone)", "기원: 클로로겐산 이성질체의 탈수 고리 락톤화", "효과: 브루잉 초중반 전체 플레이버를 받쳐주는 마일드하고 청량한 쓴맛 레이어"],
           ["아세트산 / 초산 (Acetic Acid)", "기원: 로스팅 진행 중 유리 자당(Sucrose) 구조의 분괴", "효과: 원두 pH를 낮추며 식초 특유의 짜릿한 산미 레벨업 유도"],
@@ -577,16 +572,17 @@
 
         const isLeftColumn = card.classList.contains('left-card');
         
+        // 💡 [수정 사항 2 반영] 팝업이 카드를 가리지 않도록 교차 배치 방향에 맞춰 왼쪽/오른쪽 스마트 플로팅 전환
         if (isLeftColumn) {
           popover.style.left = `${xRight + 12}px`; 
         } else {
           popover.style.left = `${xLeft - 482}px`; 
         }
         
-        // 고해상도 세로 분배 축에 부합하여 터짐 없는 오버헤드 마스킹 제어
-        if (yTop > 500) {
-          popover.style.top = `${yTop - 240}px`; 
-        } else if (yTop > 250) {
+        // 지그재그 배치 높이에 따른 다이내믹 스크롤바 바닥 터짐 방지 앵커링
+        if (yTop > 450) {
+          popover.style.top = `${yTop - 260}px`; 
+        } else if (yTop > 200) {
           popover.style.top = `${yTop - 120}px`;
         } else {
           popover.style.top = `${yTop - 10}px`;
