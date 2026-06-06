@@ -255,7 +255,7 @@
       border-top: 1px solid rgba(0, 0, 0, 0.06);
       display: flex;
       justify-content: space-between;
-      align-items: center; /* 수직 정렬 정돈 */
+      align-items: center; 
     }
     .ref-box {
       color: #86868B;
@@ -264,10 +264,10 @@
       max-width: 720px;
     }
 
-    /* 💡 [대변혁] 참고문헌 4줄 높이와 100% 일치하는 지름 75px 초미니멀 브랜드 인장 아키텍처 */
+    /* 참고문헌 4줄 높이와 100% 일치하는 지름 75px 초미니멀 브랜드 인장 */
     .logo-container-block {
       position: relative;
-      width: 75px; /* 지름을 참고문헌 4줄 수직 높이(75px)와 완벽 연동 */
+      width: 75px; 
       height: 75px;
       display: flex;
       justify-content: center;
@@ -280,16 +280,16 @@
       width: 75px;
       position: relative;
       height: 75px;
-      color: #A0522D; /* 가치커피 시그니처 로스팅 다크 브라운 피그먼트 */
+      color: #A0522D; 
       font-weight: 900;
       text-align: center;
       cursor: pointer;
       transform-origin: 50% 50%;
       -webkit-transform-origin: 50% 50%;
-      /* 💡 [수정 사항 1 해결] 평소에 무한히 영원히 도는 상시 애니메이션 메커니즘 체결 */
+      /* 평소에 무한히 영원히 도는 상시 애니메이션 메커니즘 체결 */
       animation: spinRound 16s linear infinite;
     }
-    /* 💡 [수정 사항 1 해결] 마우스 오버 시 부드럽게 그 자리에 브레이크 잠금 일시정지 인터랙션 구현 */
+    /* 마우스 오버 시 부드럽게 그 자리에 브레이크 잠금 일시정지 */
     .logo-container-block:hover .circular-text {
       animation-play-state: paused;
     }
@@ -300,8 +300,18 @@
       right: 0;
       top: 0;
       bottom: 0;
-      font-size: 7px; /* 💡 [수정 사항 2 해결] 지름이 75px로 작아졌으므로 겹침 방지용 초미니 가젯 폰트 다운스케일 */
+      font-size: 7px; /* 75px 지름에 최적화된 마이크로 텍스트 분사 */
       transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+    }
+
+    /* 💡 [누락 버그 완전 해결] 애니메이션 작동 룰을 정의하는 핵심 keyframes 선언 주입 완료 */
+    @keyframes spinRound {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -492,7 +502,7 @@
           ["푸르푸랄 (Furfural)", "기원: 세포벽 5탄당(펜토스) 섬유질 조직 파괴", "효과: 잘 구운 베이커리 빵, 토스트 고유의 진한 카라멜 잔향의 뿌리"],
           ["다이아세틸 (Diacetyl)", "기원: 유리 자당(Sucrose) 초기 카라멜화 탈수 반응", "효과: 천연 버터, 연유, 바닐라 크림 같은 달콤하고 오일리한 마우스필"],
           ["5-HMF (5-Hydroxymethylfurfural)", "기원: 6탄당(포도당/과당)의 고열 탈수 현상", "효과: 약배전 피크이며 말린 자두, 브라운 슈가의 끈적한 과일 단 향 독점"],
-          ["말톨 (Maltol)", "기원: 전분 및 고분자 다당류 체인의 열분해 변형", "효과: 구운 설탕, 달고나 특유의 직관적이고 친숙한 단맛 여운 증폭"],
+          ["말톨 (Maltol)", "기원: 생두 전분 및 고분자 다당류 체인의 열분해 변형", "효과: 구운 설탕, 달고나 특유 of 직관적이고 친숙한 단맛 여운 증폭"],
           ["퍼퓨릴 알코올 (Furfuryl Alcohol)", "기원: 푸르푸랄의 열화학적 기상 환원 반응", "효과: 커피 리퀴드의 단 향 베이스를 넓고 묵직하게 지탱하는 액상 성분"],
           ["2-아세틸퓨란 (2-Acetylfuran)", "기원: 자당 열분해 유래 아세틸기 고온 결합", "효과: 카라멜 시럽, 정제당을 태울 때 발생하는 달콤쌉싸름한 브라운 노트"],
           ["5-메틸퍼퓨랄 (5-Methylfurfural)", "기원: 헥소스 다당류 뼈대의 고온 열분해 과정", "효과: 메이플 시럽, 천연 꿀, 구운 마시멜로 같은 깊은 단 향의 점성 빌드"],
@@ -544,7 +554,7 @@
           ["오르토-크레솔 (o-Cresol)", "기원: 메틸페놀계 위치 이성질체 분해물", "효과: 무거운 참나무 장작을 태울 때 나는 스모키 향의 탄탄한 기저층 형성"],
           ["메타-크레솔 (m-Cresol)", "기원: 크레솔 화합물 구조", "효과: 다크 샷 마감 시 혀 뒤편에 남는 스모키 피니시의 주력 구성 물질"],
           ["파라-크레솔 (p-Cresol)", "기원: 고배전 페놀계의 메틸기 치환 반응", "효과: 프렌치/이탈리안 배전에서 도드라지는 다크한 훈연 시가 뉘앙스 보정"],
-          ["카테콜 (Catechol)", "기원: 폴리페놀 구조의 분해 산물", "효과: 강배전 샷에서 점성을 띤 무겁고 쌉싸름한 다크 카카오디 바디감 유발"],
+          ["카테콜 (Catechol)", "기원: 폴리페놀 구조의 분해 산물", "효과: 강배전 샷에서 점성을 띤 무겁고 쌉싸름한 다크 카카오 바디감 유발"],
           ["바닐린 (Vanillin)", "기원: 카르보닐기와 카테콜의 고온 축합 과정", "효과: 다크 에스프레소 추출 후 크레마 표면에 감도는 고급 바닐라 빈 여운"],
           ["시링골 (Syringol)", "기원: 원두 세포벽 디메톡시페놀 리그닌 구조의 고온 분해", "효과: 바비큐 그릴, 참나무 가열 훈연 향 특유의 중후하고 무거운 타는 향 피니시"],
           ["고분자 멜라노이딘 (High-MW)", "기원: 단백질 아미노산 + 환원당의 최종 단계 중합 반응", "효과: 원두를 완벽한 밤색으로 물들이며 추출 점성과 묵직한 바디감의 핵심"],
@@ -563,7 +573,7 @@
     
     let popoverTimeout = null;
 
-    // [원형 텍스트 자회전 파싱 분사 엔진]
+    // [원형 텍스트 생성 가동 스크립트]
     const circularText = document.querySelector('.circular-text');
     if (circularText) {
       const textOrigin = circularText.innerText;
