@@ -49,18 +49,18 @@
       border-left: 4px solid #A0522D; /* 로스팅 시그니처 다크 브라운 */
     }
 
-    /* 💡 [대변혁] 중앙 이미지 고정 및 6단 지그재그 교차 입체 그리드 행렬 세팅 */
+    /* 💡 [수정 사항 1, 2 반영] 가운데 이미지 배치 및 6단 지그재그 교차 정밀 그리드 행렬 */
     .workspace {
       display: grid;
-      grid-template-columns: 350px 320px 350px; /* 좌우 공간을 넓혀 가독성 스케일업 */
-      grid-template-rows: repeat(6, 130px); /* 촘촘하고 꽉 찬 비주얼을 위해 130px로 간격 압축 조율 */
+      grid-template-columns: 360px 300px 360px; /* 좌우 카드 폭을 대폭 늘려 볼륨감 확보 */
+      grid-template-rows: repeat(6, 140px); /* 6개 행을 140px 균등 배정하여 840px 세로공간 확보 */
       align-items: center;
       position: relative;
       margin-top: 20px;
-      height: 780px; 
+      height: 840px; 
     }
 
-    /* 정중앙 수직 정렬 코어 */
+    /* 정중앙 세로형 이미지 홀딩 코어 축 */
     .center-core {
       grid-column: 2;
       grid-row: 1 / span 6;
@@ -70,16 +70,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 5;
     }
 
     .bean-image-wrapper {
       width: 240px;
-      height: 760px;
+      height: 820px;
       border-radius: 24px;
       box-shadow: 0 15px 45px rgba(92, 64, 51, 0.12);
       overflow: hidden;
       border: 5px solid #FFFFFF;
-      z-index: 5;
       background: #FFFFFF;
       display: flex;
       justify-content: center;
@@ -91,8 +91,10 @@
       object-fit: fill;
     }
 
-    /* 캔버스 전체를 감싸는 지시선 마스터 레이어 */
+    /* 지시선 마스터 SVG 레이어 (전체 그리드를 커버하도록 공간 동기화) */
     .connector-svg {
+      grid-column: 1 / span 3;
+      grid-row: 1 / span 6;
       position: absolute;
       top: 0;
       left: 0;
@@ -102,7 +104,7 @@
       z-index: 2;
     }
 
-    /* 💡 [수정 사항 4 해결] 카드의 수직 중앙(M)에서 실제 원두 온도 마커 노드를 향해 예리하게 사선으로 연결되는 앵커 좌표 */
+    /* 💡 [수정 사항 4 반영] 각 페이즈 카드의 중심에서 원두 이미지 내부 온도 배지를 향해 입체적으로 연결되는 사선 앵커 고증 */
     .pointer-line {
       fill: none;
       stroke: #E5E5EA;
@@ -114,16 +116,16 @@
       transition: fill 0.25s ease, r 0.25s ease;
     }
 
-    /* 💡 [수정 사항 3 해결] 텍스트 크기와 카드 스케일을 약간 키워 내부 여백을 꽉 채운 프리미엄 가젯 */
+    /* 💡 [수정 사항 3 반영] 여백 차단용 카드 패딩 벌크업 및 테두리 볼륨감 극대화 */
     .category-card {
       background: #FFFFFF;
       border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 18px;
-      padding: 20px 24px; /* 패딩을 넓혀 볼륨감 형성 */
+      border-radius: 20px;
+      padding: 22px 26px; /* 패딩을 시원하게 늘려 헐빈한 여백 소멸 */
       cursor: pointer;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
       transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-      align-self: center;
+      z-index: 10;
     }
     .category-card:hover {
       transform: translateY(-3px);
@@ -139,21 +141,23 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
+    
+    /* 💡 [수정 사항 3 반영] 폰트 크기를 대폭 키워 시인성과 고급감 연출 */
     .card-title {
-      font-size: 16.5px; /* 타이틀 폰트 스케일업 */
+      font-size: 17px; /* 15.5px -> 17px 스케일업 */
       font-weight: 700;
       color: #1D1D1F;
       margin-bottom: 7px;
     }
     .card-desc {
-      font-size: 12.5px; /* 설명문 폰트 스케일업으로 시인성 확보 */
+      font-size: 12.5px; /* 11.5px -> 12.5px 본문 시인성 확보 */
       color: #636366;
-      line-height: 1.5;
+      line-height: 1.52;
     }
 
-    /* 액티브 하이라이트 인덱서 */
+    /* 호버 액티브 상태 매칭 색상 인덱서 */
     .category-card.active-card {
       border-color: var(--theme-color) !important;
     }
@@ -166,7 +170,7 @@
       r: 5px;
     }
 
-    /* 자석식 고정 스크롤 팝업 익스플로러 메커니즘 */
+    /* 💡 [버그 완전 해결] .workspace 기준 절대 좌표계에 완벽 결착된 고정 스크롤 팝업 익스플로러 */
     .apple-popover {
       position: absolute;
       background: rgba(255, 255, 255, 0.96);
@@ -180,12 +184,12 @@
       display: none;
       z-index: 1000;
       width: 460px;
-      max-height: 420px; 
+      max-height: 430px; 
       overflow-y: auto;   
       animation: popFade 0.15s ease-out;
     }
 
-    /* 스크롤바 디자인 */
+    /* 스크롤바 커스텀 */
     .apple-popover::-webkit-scrollbar {
       width: 5px;
     }
@@ -202,7 +206,7 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* 솔리드 화이트 실드 타이틀 버그 패치 */
+    /* 솔리드 화이트 실드 타이틀 가드 */
     .pop-title {
       font-size: 16px;
       font-weight: 700;
@@ -260,11 +264,6 @@
       line-height: 1.6;
       max-width: 720px;
     }
-    .ref-title {
-      font-weight: 600;
-      color: #636366;
-      margin-bottom: 4px;
-    }
     .logo-box {
       text-align: right;
       font-family: "Georgia", "Pretendard Variable", sans-serif;
@@ -296,27 +295,27 @@
 
     <div class="workspace">
       
-      <div class="center-core" style="grid-column: 1 / span 3; grid-row: 1 / span 6;">
-        <svg class="connector-svg" id="connector-canvas" viewBox="0 0 1020 780">
-          <path id="line-stage1" class="pointer-line" d="M 350 65 L 455 65 L 475 160" />
-          <circle id="dot-stage1" class="pointer-circle" cx="475" cy="160" r="3.5" />
+      <svg class="connector-svg" id="connector-canvas" viewBox="0 0 1020 840">
+        <path id="line-stage1" class="pointer-line" d="M 360 70 L 440 70 L 470 150" />
+        <circle id="dot-stage1" class="pointer-circle" cx="470" cy="150" r="3.5" />
 
-          <path id="line-stage2" class="pointer-line" d="M 670 195 L 565 195 L 545 255" />
-          <circle id="dot-stage2" class="pointer-circle" cx="545" cy="255" r="3.5" />
+        <path id="line-stage2" class="pointer-line" d="M 660 210 L 580 210 L 550 260" />
+        <circle id="dot-stage2" class="pointer-circle" cx="550" cy="260" r="3.5" />
 
-          <path id="line-stage3" class="pointer-line" d="M 350 325 L 455 325 L 475 345" />
-          <circle id="dot-stage3" class="pointer-circle" cx="475" cy="345" r="3.5" />
+        <path id="line-stage3" class="pointer-line" d="M 360 350 L 430 350 L 465 380" />
+        <circle id="dot-stage3" class="pointer-circle" cx="465" cy="380" r="3.5" />
 
-          <path id="line-stage4" class="pointer-line" d="M 670 455 L 565 455 L 545 440" />
-          <circle id="dot-stage4" class="pointer-circle" cx="545" cy="440" r="3.5" />
+        <path id="line-stage4" class="pointer-line" d="M 660 490 L 550 490" />
+        <circle id="dot-stage4" class="pointer-circle" cx="550" cy="490" r="3.5" />
 
-          <path id="line-stage5" class="pointer-line" d="M 350 585 L 455 585 L 475 545" />
-          <circle id="dot-stage5" class="pointer-circle" cx="475" cy="545" r="3.5" />
+        <path id="line-stage5" class="pointer-line" d="M 360 630 L 430 630 L 465 610" />
+        <circle id="dot-stage5" class="pointer-circle" cx="465" cy="610" r="3.5" />
 
-          <path id="line-stage6" class="pointer-line" d="M 670 715 L 565 715 L 545 650" />
-          <circle id="dot-stage6" class="pointer-circle" cx="545" cy="650" r="3.5" />
-        </svg>
+        <path id="line-stage6" class="pointer-line" d="M 660 770 L 590 770 L 550 720" />
+        <circle id="dot-stage6" class="pointer-circle" cx="550" cy="720" r="3.5" />
+      </svg>
 
+      <div class="center-core">
         <div class="bean-image-wrapper" id="core-bean-img">
           <img src="roasted-coffee-bean2.png" alt="Roasted Coffee Bean Thermal Evolution">
         </div>
@@ -376,6 +375,8 @@
         <div class="card-desc">클로로겐산 락톤이 페닐인데인으로 2차 중합되며 중후한 에스프레소성 쓴맛의 골격을 잡습니다. 초고분자 멜라노이딘이 끈적한 바디 점성을 독점합니다.</div>
       </div>
 
+      <div id="popover" class="apple-popover"></div>
+
     </div>
 
     <div class="footer-zone">
@@ -391,12 +392,10 @@
         <div class="logo-sub">Yeosu, Korea • ESTD. 2017</div>
       </div>
     </div>
-
-    <div id="popover" class="apple-popover"></div>
   </div>
 
   <script>
-    // 100대 마스터 화학사전 데이터베이스 프레임 유지
+    // 100대 마스터 수록 화학성분 데이터베이스 프레임 무결성 고정
     const RoastingMasterDB = {
       stage1: {
         title: "🌾 140°C 수분 증발 구간 생성 분자 (1~16)",
@@ -563,29 +562,28 @@
         });
         popover.innerHTML = html;
 
-        const containerRect = document.querySelector('.dashboard-container').getBoundingClientRect();
-        const cardRect = card.getBoundingClientRect();
-        
-        const xLeft = cardRect.left - containerRect.left;
-        const xRight = cardRect.right - containerRect.left;
-        const yTop = cardRect.top - containerRect.top;
+        // 💡 [버그 완전 제어 핵심 패치] 외부 Viewport에 흔들리는 getBoundingClientRect 대신, 
+        // 오프셋 부모(.workspace) 기준 100% 고정형 픽셀 좌표 매커니즘인 offsetTop/offsetLeft 이식
+        const cardTop = card.offsetTop;
+        const cardLeft = card.offsetLeft;
+        const cardWidth = card.offsetWidth;
 
         const isLeftColumn = card.classList.contains('left-card');
         
-        // 💡 [수정 사항 2 반영] 팝업이 카드를 가리지 않도록 교차 배치 방향에 맞춰 왼쪽/오른쪽 스마트 플로팅 전환
+        // 팝업 가로 밀착 자동 조율
         if (isLeftColumn) {
-          popover.style.left = `${xRight + 12}px`; 
+          popover.style.left = `${cardLeft + cardWidth + 15}px`; 
         } else {
-          popover.style.left = `${xLeft - 482}px`; 
+          popover.style.left = `${cardLeft - 475}px`; 
         }
         
-        // 지그재그 배치 높이에 따른 다이내믹 스크롤바 바닥 터짐 방지 앵커링
-        if (yTop > 450) {
-          popover.style.top = `${yTop - 260}px`; 
-        } else if (yTop > 200) {
-          popover.style.top = `${yTop - 120}px`;
+        // 팝업 세로 한계선 자동 쉴딩 (바닥 탈출 방지 연산)
+        if (cardTop > 450) {
+          popover.style.top = `${cardTop - 220}px`; 
+        } else if (cardTop > 200) {
+          popover.style.top = `${cardTop - 100}px`;
         } else {
-          popover.style.top = `${yTop - 10}px`;
+          popover.style.top = `${cardTop - 10}px`;
         }
         
         popover.style.display = 'block';
