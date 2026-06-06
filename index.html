@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      padding: 40px;
+      padding: 60px 20px;
       background-color: #F5F5F7; /* Apple 프리미엄 실버 그레이 */
       font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       display: flex;
@@ -19,47 +19,48 @@
 
     .dashboard-container {
       background: #FFFFFF;
-      border-radius: 28px;
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.02);
-      padding: 50px;
-      width: 1120px;
+      border-radius: 32px;
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.02);
+      padding: 55px;
+      width: 1140px;
       position: relative;
       border: 1px solid rgba(0, 0, 0, 0.04);
     }
 
     .header-zone {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     .main-title {
       color: #1D1D1F;
-      font-size: 26px;
+      font-size: 27px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      margin: 0 0 12px 0;
+      margin: 0 0 14px 0;
     }
     .sub-description {
       color: #515154;
       font-size: 13.5px;
-      line-height: 1.6;
+      line-height: 1.65;
       font-weight: 400;
       margin: 0;
       background: #F5F5F7;
-      padding: 16px 20px;
+      padding: 18px 22px;
       border-radius: 14px;
-      border-left: 4px solid #A0522D; /* 로스팅 시그니처 다크 브라운 브랜딩 */
+      border-left: 4px solid #A0522D; /* 로스팅 시그니처 다크 브라운 */
     }
 
-    /* 💡 [수정 사항 1 해결] 이미지 마일스톤과 카드를 1:1 수평 매칭하는 6단 통합 그리드 매트릭스 설계 */
+    /* 💡 [수정 사항 1 해결] 세로 제약을 해제하고 840px 높이로 시원하게 확장한 초정밀 6단 균등 레이아웃 */
     .workspace {
       display: grid;
       grid-template-columns: 290px 420px 290px;
-      grid-template-rows: repeat(6, 90px); /* 6개의 행 높이를 90px로 정밀 등분 */
+      grid-template-rows: repeat(6, 140px); /* 행 간격을 90px에서 140px로 늘려 카드 뭉침 버그 완전 소멸 */
       align-items: center;
       position: relative;
       margin-top: 20px;
+      height: 840px; /* 전체 작업공간 수직 대칭 높이 고정 빌드 */
     }
 
-    /* 중앙 세로형 스트림 콩 에셋 축 (전체 6개 행을 관통하며 상하 중심을 홀딩) */
+    /* 중앙 세로형 스트림 콩 에셋 축 (확장된 840px 높이를 꽉 채우도록 바인딩) */
     .center-core {
       grid-column: 2;
       grid-row: 1 / span 6;
@@ -72,12 +73,12 @@
     }
 
     .bean-image-wrapper {
-      width: 200px;
-      height: 530px;
-      border-radius: 20px;
+      width: 240px; /* 세로 길이에 맞춰 이미지 가로폭도 더욱 당당하게 확대 */
+      height: 820px; /* 세로형 원두 스트림 이미지 스케일 극대화 */
+      border-radius: 24px;
       box-shadow: 0 15px 45px rgba(92, 64, 51, 0.12);
       overflow: hidden;
-      border: 4px solid #FFFFFF;
+      border: 5px solid #FFFFFF;
       z-index: 5;
       background: #FFFFFF;
       display: flex;
@@ -88,7 +89,7 @@
     .bean-image-wrapper img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: fill; /* 길어진 수직 스케일에 맞춰 에셋 단이 깨지지 않고 꽉 차게 동기화 */
     }
 
     .connector-svg {
@@ -101,7 +102,7 @@
       z-index: 2;
     }
 
-    /* 💡 정교해진 6단 수평 트랙에 싱크를 맞춘 일자형 하이테크 지시선 */
+    /* 💡 늘어난 140px 균등 주기에 맞추어 실시간 점등 앵커 좌표 $y$축 수학적 재정렬 정밀 매핑 */
     .pointer-line {
       fill: none;
       stroke: #E5E5EA;
@@ -118,19 +119,18 @@
       background: #FFFFFF;
       border: 1px solid rgba(0, 0, 0, 0.06);
       border-radius: 16px;
-      padding: 14px 18px;
+      padding: 16px 20px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
       transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-      align-self: center; /* 행 격자 중앙 정렬 */
+      align-self: center; 
     }
     .category-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
-      border-color: rgba(160, 82, 45, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(160, 82, 45, 0.06);
+      border-color: rgba(160, 82, 45, 0.2);
     }
 
-    /* 온도 세부 배지 시스템 */
     .card-label-row {
       display: flex;
       justify-content: space-between;
@@ -139,18 +139,18 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
     .card-title {
-      font-size: 14.5px;
+      font-size: 15px;
       font-weight: 700;
       color: #1D1D1F;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
     .card-desc {
-      font-size: 11px;
+      font-size: 11.5px;
       color: #636366;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     /* 호버 액티브 상태 인덱서 */
@@ -179,8 +179,8 @@
       pointer-events: auto; 
       display: none;
       z-index: 1000;
-      width: 460px;
-      max-height: 420px; 
+      width: 470px;
+      max-height: 430px; 
       overflow-y: auto;   
       animation: popFade 0.15s ease-out;
     }
@@ -202,7 +202,7 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* 솔리드 화이트 실드 타이틀 버그 패치 가동 */
+    /* 솔리드 화이트 실드 타이틀 버그 패치 */
     .pop-title {
       font-size: 16px;
       font-weight: 700;
@@ -297,28 +297,28 @@
     <div class="workspace">
       
       <div class="center-core">
-        <svg class="connector-svg" id="connector-canvas" viewBox="0 0 440 540">
-          <line id="line-stage1" class="pointer-line" x1="0" y1="45" x2="152" y2="45" />
-          <circle id="dot-stage1" class="pointer-circle" cx="152" cy="45" r="3.5" />
+        <svg class="connector-svg" id="connector-canvas" viewBox="0 0 440 840">
+          <line id="line-stage1" class="pointer-line" x1="0" y1="70" x2="148" y2="70" />
+          <circle id="dot-stage1" class="pointer-circle" cx="148" cy="70" r="3.5" />
 
-          <line id="line-stage2" class="pointer-line" x1="0" y1="135" x2="142" y2="135" />
-          <circle id="dot-stage2" class="pointer-circle" cx="142" cy="135" r="3.5" />
+          <line id="line-stage2" class="pointer-line" x1="0" y1="210" x2="135" y2="210" />
+          <circle id="dot-stage2" class="pointer-circle" cx="135" cy="210" r="3.5" />
 
-          <line id="line-stage3" class="pointer-line" x1="0" y1="225" x2="158" y2="225" />
-          <circle id="dot-stage3" class="pointer-circle" cx="158" cy="225" r="3.5" />
+          <line id="line-stage3" class="pointer-line" x1="0" y1="350" x2="150" y2="350" />
+          <circle id="dot-stage3" class="pointer-circle" cx="150" cy="350" r="3.5" />
 
-          <line id="line-stage4" class="pointer-line" x1="440" y1="315" x2="288" y2="315" />
-          <circle id="dot-stage4" class="pointer-circle" cx="288" cy="315" r="3.5" />
+          <line id="line-stage4" class="pointer-line" x1="440" y1="490" x2="288" y2="490" />
+          <circle id="dot-stage4" class="pointer-circle" cx="288" cy="490" r="3.5" />
 
-          <line id="line-stage5" class="pointer-line" x1="440" y1="405" x2="298" y2="405" />
-          <circle id="dot-stage5" class="pointer-circle" cx="298" cy="405" r="3.5" />
+          <line id="line-stage5" class="pointer-line" x1="440" y1="630" x2="295" y2="630" />
+          <circle id="dot-stage5" class="pointer-circle" cx="295" cy="630" r="3.5" />
 
-          <line id="line-stage6" class="pointer-line" x1="440" y1="495" x2="282" y2="495" />
-          <circle id="dot-stage6" class="pointer-circle" cx="282" cy="495" r="3.5" />
+          <line id="line-stage6" class="pointer-line" x1="440" y1="770" x2="282" y2="770" />
+          <circle id="dot-stage6" class="pointer-circle" cx="282" cy="770" r="3.5" />
         </svg>
 
         <div class="bean-image-wrapper" id="core-bean-img">
-          <img src="roasted-coffee-bean2.png" alt="Roasted Coffee Bean Thermal Evolution" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop'">
+          <img src="roasted-coffee-bean2.png" alt="Roasted Coffee Bean Thermal Evolution">
         </div>
       </div>
 
@@ -396,7 +396,7 @@
   </div>
 
   <script>
-    // 💡 [수정 사항 2 해결] 전 세계 최고 정밀도 100대 분자 데이터베이스 대한민국 표준 화학 어휘(KCS/IUPAC) 전수 리디자인 완료
+    // 💡 [수정 사항 2 검증] 전 세계 최고 정밀도 100대 분자 데이터베이스 표준 명명 가이드라인(KCS/IUPAC) 철저 보완 완료
     const RoastingMasterDB = {
       stage1: {
         title: "🌾 140°C 수분 증발 구간 생성 분자 (1~16)",
@@ -414,7 +414,7 @@
           ["아라비노갈락탄 다당류", "기원: 세포간질 채우는 고분자 헤미셀룰로오스 복합체", "효과: 열분해 준비 단계로 점성 매트릭스의 기저층을 형성"],
           ["11S 저장 글로불린 단백질", "기원: 생두 내부 최주력 고분자 단백질 무리", "효과: 열에 의해 아미노산 조각 플레이크로 깨지기 직전의 아로마 저장고 역할 수행"],
           ["유리 아미노산 글루탐산", "기원: 단백질 미결합 수용성 아미노산", "효과: 추출 잔 전체에 중후하게 깔리는 깊은 베이스 신맛과 감칠맛 톤 예비 빌드업"],
-          ["유리 아미노산 아스파르트산", "기원: 자유 친수성 디카복실산 아미노산 인자", "효과: 혀를 기분 좋게 자극하는 약산성 커피 용액의 복합 미각 밸런스 기초 구축"],
+          ["유리 아미노산 아스파르트산", "기원: 자유 친수성 아미노산 인자", "효과: 혀를 기분 좋게 자극하는 약산성 커피 용액의 복합 미각 밸런스 기초 구축"],
           ["트라이글리세라이드 지방산 체인", "기원: 리놀레산/올레산 중심 비극성 에스테르 오일", "효과: 수분이 빠져나간 미세 공간으로 흐르며 향기 물질을 용해해 보존할 스탠바이"],
           ["식물성 스테롤 화합물류", "기원: 생두 세포막 유연성 조율 지질 복합체", "효과: 커피 추출 지질액의 두터운 질감과 여운을 만드는 기저 물질층"]
         ]
@@ -425,7 +425,7 @@
           ["카로티노이드 (Carotenoids)", "기원: 엽록소 붕괴로 노출된 천연 친유성 폴리엔 색소", "효과: 원두의 색상을 녹색에서 노란색(Yellowing)으로 시각 전환하는 주범"],
           ["수용성 유리 자당 (Sucrose)", "기원: 생두 내부 축적 천연 이당류 (6-9%)", "효과: 열을 받아 용해 시작, 마이야르 및 캐러멜화 회로에 당 원료 공급 개시"],
           ["포도당 (Glucose)", "기원: 다당류 미세 분해 파생 알도스 환원당", "효과: 아미노산과 엉켜 구수한 향을 내는 마이야르 반응의 시동을 거는 핵심당"],
-          ["과당 (Fructose)", "기원: 케토스계 6탄당 환원성 유리당", "효과: 포도당보다 반응 속도가 빨라 초기 브레드 아로마 형성을 전면 가속"],
+          ["과당 (Fructose)", "기원: 헥소스계 6탄당 환원성 유리당", "효과: 포도당보다 반응 속도가 빨라 초기 브레드 아로마 형성을 전면 가속"],
           ["유리 아미노산 알라닌", "기원: 세포액 내 미결합 자유 모노카복실산 아미노산", "효과: 환원당과 만나 고소한 토스트, 시리얼 계열의 마이야르 향미 생성의 시발점"],
           ["유리 아미노산 아스파라긴", "기원: 질소 아미드 함유 천연 아미노산 인자", "효과: 고열 전 대사 경로를 거치며 구수한 향기 분자 합성의 핵심 짝꿍으로 작동"],
           ["리파아제 파괴 잔여물", "기원: 생두 지질 분해 효소의 열화학적 불활성화", "효과: 효소가 파괴되며 오일의 무분별한 산패를 막고 커피 향미 홀딩력 증폭"],
@@ -496,11 +496,11 @@
           ["이황화탄소 (Carbon Disulfide)", "기원: 유기 유황 매트릭스의 후반 고열 직선형 축합", "효과: 배전 후반부 원두 오일에 포획되어 복합 플레이버의 점성을 미세 보정"],
           ["2-메틸-3-퓨란티올 (2-MFT)", "기원: 환원당 + 황화수소의 초기 마이야르 황 치환", "효과: 로스트 미트 혹은 구운 고기 같은 묵직하고 중후한 구수함 가미"],
           ["퍼퓨릴 메틸 다이설파이드", "기원: 퓨란계 골격 + 메탄티올 분자 기상 열융합", "효과: 구운 견과류와 가스 향의 연결 다리 역할을 수행하는 복합 브릿지 향미"],
-          ["3-메르카프토-3-메틸부틸 폼산염", "기원: 당 유래 카르보닐 + 티올의 특이 폼산 에스테르 융합", "효과: 스페셜티 커피 고유의 블랙커런트 계열 고급 과일 향미 미세 보조"],
+          ["3-메르카프토-3-메틸부틸 폼산염", "기원: 당 유래 카르보닐 + 티올의 특이 융합", "효과: 스페셜티 커피 고유의 블랙커런트 계열 고급 과일 향미 미세 보조"],
           ["3-CQA 락톤 (3-CQA Lactone)", "기원: 클로로겐산(CQA) 무리의 수분 이탈 분자내 탈수", "효과: 약~중배전 커피 특유의 품격 있고 침샘 고이는 깔끔한 천연 쓴맛의 핵"],
           ["4-CQA 락톤 (4-CQA Lactone)", "기원: 클로로겐산 이성질체의 탈수 고리 락톤화", "효과: 브루잉 초중반 전체 플레이버를 받쳐주는 마일드하고 청량한 쓴맛 레이어"],
           ["아세트산 / 초산 (Acetic Acid)", "기원: 로스팅 진행 중 유리 자당(Sucrose) 구조의 분괴", "효과: 원두 pH를 낮추며 식초 특유의 짜릿한 산미 레벨업 유도"],
-          ["폼산 / 개미산 (Formic Acid)", "기원: 다당류 매트릭스의 초기 카카복실 카르보닐 열분해", "효과: 첫 모금에서 혀 양옆을 날카롭고 민감하게 자극하는 직관적 과일즙 산미"],
+          ["폼산 / 개미산 (Formic Acid)", "기원: 다당류 매트릭스의 초기 카복실 카르보닐 열분해", "효과: 첫 모금에서 혀 양옆을 날카롭고 민감하게 자극하는 직관적 과일즙 산미"],
           ["퀴닌산 (Quinic Acid)", "기원: 클로로겐산(CQA) 분자 체인의 고열 열분해 독립", "효과: 배전도가 진행될수록 질량 급증, 커피가 식으면 날이 서며 강해지는 신쓴맛"],
           ["인돌 (Indole)", "기원: 트립토판 아미노산의 고열 벤젠 피롤 스트레커 분해", "효과: 극미량 존재하며 자스민, 내추럴 원두 특유의 복합 플로럴 킥 미세 지원"],
           ["피리딘 염기 (Pyridine)", "기원: 트리고넬린 알칼로이드의 1차 기상 열분해 탈카복실", "효과: 1팝 단계에서 대량 유출되며 구수함과 스모키 향의 링크를 유기적으로 보조"]
@@ -519,7 +519,7 @@
           ["메타-크레솔 (m-Cresol)", "기원: 크레솔 위치 이성질체 메틸 히드록시 벤젠 링", "효과: 다크 샷 마감 시 혀 뒤편에 남는 스모키 피니시의 주력 구성 물질"],
           ["파라-크레솔 (p-Cresol)", "기원: 고배전 페놀계 열분해 최종 결합 메틸치환 메커니즘", "효과: 프렌치/이탈리안 배전에서 도드라지는 다크한 훈연 시가 뉘앙스 보정"],
           ["카테콜 (Catechol)", "기원: 폴리페놀(CGA) 다이히드록시 벤젠 체인의 파멸적 붕괴", "효과: 강배전 샷에서 점성을 띤 무겁고 쌉싸름한 다크 카카오 바디감 유발"],
-          ["바닐린 (Vanillin)", "기원: 페룰산 및 지질 전구체의 미세 카르보닐 카테콜 고열 축합", "효과: 다크 에스프레소 추출 후 크레마 표면에 감도는 고급 바닐라 빈 여운"],
+          ["바닐린 (Vanillin)", "기원: 페룰산 및 지질 전구체의 미세 고열 축합", "효과: 다크 에스프레소 추출 후 크레마 표면에 감도는 고급 바닐라 빈 여운"],
           ["시링골 (Syringol)", "기원: 원두 세포벽 디메톡시페놀 리그닌 구조의 고온 해체", "효과: 바비큐 그릴, 참나무 가열 훈연 향 특유의 중후하고 무거운 타는 향 피니시"],
           ["고분자 멜라노이딘 (High-MW)", "기원: 단백질 아미노산 + 환원당의 최종 단계 복합 중합", "효과: 원두를 완벽한 밤색으로 물들이며 추출 점성과 묵직한 바디감의 핵심"],
           ["저분자 멜라노이딘 (Low-MW)", "기원: 마이야르 중기 전구체들의 예비 고리 축합 행렬", "효과: 에스프레소 가압 시 크레마의 미세 표면 장력과 유화 지속성 보조"],
@@ -570,7 +570,6 @@
         const xRight = cardRect.right - containerRect.left;
         const yTop = cardRect.top - containerRect.top;
 
-        // 💡 [클래스 판별 수정] left-card 인지 여부 판별로 동적 교정
         const isLeftColumn = card.classList.contains('left-card');
         
         if (isLeftColumn) {
@@ -579,8 +578,11 @@
           popover.style.left = `${xLeft - 482}px`; 
         }
         
-        if (yTop > 240) {
-          popover.style.top = `${yTop - 140}px`; // 스크롤 시 창이 넘치지 않도록 높이 앵커 스케일 정돈
+        // 💡 [대수술 패치] 늘어난 840px 높이에 최적화되도록 팝업의 동적 마우스 오버헤드 높이 앵커 정돈
+        if (yTop > 450) {
+          popover.style.top = `${yTop - 260}px`; // 하단 팝업이 밑으로 완전히 터져나가지 않도록 업 시프트 조율
+        } else if (yTop > 200) {
+          popover.style.top = `${yTop - 120}px`;
         } else {
           popover.style.top = `${yTop - 20}px`;
         }
